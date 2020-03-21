@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>雇员列表</title>
+    <link th:href="@{/asserts/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="formstyle">
+<table class="listdatatable">
+    <thead>
+    <tr>
+        <th>雇员编号</th>
+        <th>雇员名称</th>
+        <th>雇员邮箱</th>
+        <th>雇员性别</th>
+        <th>雇员生日</th>
+        <th>所属部门</th>
+    </tr>
+    </thead>
+    <tbody th:if="${not #lists.isEmpty(employees)}">
+    <tr th:each="employee:${employees}">
+
+        <td th:text="${employee?.id}"></td>
+        <td th:text="${employee?.lastName}"></td>
+        <td th:text="${employee?.email}"></td>
+        <td>
+            <th:block th:if="${employee?.gender==1}">男</th:block>
+            <th:block th:if="${employee?.gender==0}">女</th:block>
+        </td>
+        <td th:text="${#dates.format(employee?.birth, 'yyyy-MM-dd')}"></td>
+        <td>
+            <th:block th:if="${employee?.department==101}">技术部</th:block>
+            <th:block th:if="${employee?.department==102}">销售部</th:block>
+            <th:block th:if="${employee?.department==103}">售后部</th:block>
+            <th:block th:if="${employee?.department==104}">后勤部</th:block>
+            <th:block th:if="${employee?.department==105}">运营部</th:block>
+        </td>
+    </tr>
+    </tbody>
+    <tbody th:if="${#lists.isEmpty(employees)}">
+    <tr>
+        <td colspan="8" style="text-align: center;">没有相关记录.</td>
+    </tr>
+    </tbody>
+</table>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商户列表</title>
+    <link th:href="@{/asserts/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="formstyle">
+<table class="listdatatable">
+    <thead>
+    <tr>
+        <th>白名单类型</th>
+        <th>商户编号</th>
+        <th>注册时间</th>
+        <th>修改时间</th>
+        <th>运营账号</th>
+        <th>商户状态</th>
+    </tr>
+    </thead>
+    <tbody th:if="${not #lists.isEmpty(list)}">
+    <tr th:each="entity:${list}">
+        <td>
+            <th:block th:if="${entity?.dictLogicId=='1001'}">结算白名单</th:block>
+            <th:block th:if="${entity?.dictLogicId=='1002'}">运营白名单</th:block>
+        </td>
+        <td th:text="${entity?.vendorid}"></td>
+        <td th:text="${#dates.format(entity?.createTime, 'yyyy/MM/dd HH:mm')}"></td>
+        <td th:text="${#dates.format(entity?.modifyTime, 'yyyy/MM/dd HH:mm')}"></td>
+        <td th:text="${entity?.operator}"></td>
+        <td>
+            <th:block th:if="${entity?.status=='1'}">作废</th:block>
+            <th:block th:if="${entity?.status=='0'}">正常</th:block>
+        </td>
+    </tr>
+    </tbody>
+    <tbody th:if="${#lists.isEmpty(list)}">
+    <tr>
+        <td colspan="8" style="text-align: center;">没有相关记录.</td>
+    </tr>
+    </tbody>
+</table>
+
+
+</div>
+</body>
+</html>

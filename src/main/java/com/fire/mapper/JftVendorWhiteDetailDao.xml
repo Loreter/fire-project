@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fire.mapper.JftVendorWhiteDetailDao">
+
+    <resultMap type="com.fire.entity.JftVendorWhiteDetail" id="BaseMap">
+        <result property="logicId" column="LOGIC_ID" jdbcType="OTHER"/>
+        <result property="dictLogicId" column="DICT_LOGIC_ID" jdbcType="VARCHAR"/>
+        <result property="vendorid" column="VENDORID" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="modifyTime" column="MODIFY_TIME" jdbcType="TIMESTAMP"/>
+        <result property="operator" column="OPERATOR" jdbcType="VARCHAR"/>
+        <result property="status" column="STATUS" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseMap">
+        select
+          LOGIC_ID, DICT_LOGIC_ID, VENDORID, CREATE_TIME, MODIFY_TIME, OPERATOR, STATUS
+        from  jft_vendor_white_detail
+        where LOGIC_ID = #{logicId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseMap">
+        select
+          LOGIC_ID, DICT_LOGIC_ID, VENDORID, CREATE_TIME, MODIFY_TIME, OPERATOR, STATUS
+        from  jft_vendor_white_detail
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseMap">
+        select
+        LOGIC_ID, DICT_LOGIC_ID, VENDORID, CREATE_TIME, MODIFY_TIME, OPERATOR, STATUS
+        from jft_vendor_white_detail
+        <where>
+            <if test="logicId != null">
+                and LOGIC_ID = #{logicId}
+            </if>
+            <if test="dictLogicId != null and dictLogicId != ''">
+                and DICT_LOGIC_ID = #{dictLogicId}
+            </if>
+            <if test="vendorid != null and vendorid != ''">
+                and VENDORID = #{vendorid}
+            </if>
+            <if test="createTime != null">
+                and CREATE_TIME = #{createTime}
+            </if>
+            <if test="modifyTime != null">
+                and MODIFY_TIME = #{modifyTime}
+            </if>
+            <if test="operator != null and operator != ''">
+                and OPERATOR = #{operator}
+            </if>
+            <if test="status != null and status != ''">
+                and STATUS = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="logicId" useGeneratedKeys="true">
+        insert into  jft_vendor_white_detail(DICT_LOGIC_ID, VENDORID, CREATE_TIME, MODIFY_TIME, OPERATOR, STATUS)
+        values (#{dictLogicId}, #{vendorid}, #{createTime}, #{modifyTime}, #{operator}, #{status})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update jft_vendor_white_detail
+        <set>
+            <if test="dictLogicId != null and dictLogicId != ''">
+                DICT_LOGIC_ID = #{dictLogicId},
+            </if>
+            <if test="vendorid != null and vendorid != ''">
+                VENDORID = #{vendorid},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime},
+            </if>
+            <if test="operator != null and operator != ''">
+                OPERATOR = #{operator},
+            </if>
+            <if test="status != null and status != ''">
+                STATUS = #{status},
+            </if>
+        </set>
+        where LOGIC_ID = #{logicId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from  jft_vendor_white_detail where LOGIC_ID = #{logicId}
+    </delete>
+
+</mapper>
