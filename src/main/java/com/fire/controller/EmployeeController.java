@@ -2,11 +2,14 @@ package com.fire.controller;
 
 import com.fire.entity.Employee;
 import com.fire.service.EmployeeService;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
 @Controller
 //@RestController
 @RequestMapping("employee")
+@Api(value = "EmployeeController")
 public class EmployeeController {
     /**
      * 服务对象
@@ -27,6 +31,8 @@ public class EmployeeController {
     @Resource
     private EmployeeService employeeService;
 
+    @Autowired(required = false)
+    LocaleResolver localeResolver;
     /**
      * 通过主键查询单条数据
      *
@@ -50,9 +56,9 @@ public class EmployeeController {
 
     @RequestMapping("/all")
     public String queryAll(Model model){
-
         List<Employee> employees = employeeService.queryAllByLimit(1, 10);
         model.addAttribute("employees",employees);
         return "vendor/empolyeeList";
     }
+
 }
