@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fire.mapper.JftVendorDao">
+
+    <resultMap type="com.fire.entity.JftVendor" id="JftVendorMap">
+        <result property="logicId" column="logic_id" jdbcType="OTHER"/>
+        <result property="vendorId" column="vendor_id" jdbcType="VARCHAR"/>
+        <result property="vendorName" column="vendor_name" jdbcType="VARCHAR"/>
+        <result property="vendorAge" column="vendor_age" jdbcType="INTEGER"/>
+        <result property="vendorAddress" column="vendor_address" jdbcType="VARCHAR"/>
+        <result property="vendorGendor" column="vendor_gendor" jdbcType="INTEGER"/>
+        <result property="vendorAccount" column="vendor_account" jdbcType="VARCHAR"/>
+        <result property="vendorAccountNo" column="vendor_account_no" jdbcType="VARCHAR"/>
+        <result property="vendorAccountName" column="vendor_account_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="JftVendorMap">
+        select
+          logic_id, vendor_id, vendor_name, vendor_age, vendor_address, vendor_gendor, vendor_account, vendor_account_no, vendor_account_name
+        from vendordb.jft_vendor
+        where vendor_id = #{vendorId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="JftVendorMap">
+        select
+          logic_id, vendor_id, vendor_name, vendor_age, vendor_address, vendor_gendor, vendor_account, vendor_account_no, vendor_account_name
+        from vendordb.jft_vendor
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="JftVendorMap">
+        select
+          logic_id, vendor_id, vendor_name, vendor_age, vendor_address, vendor_gendor, vendor_account, vendor_account_no, vendor_account_name
+        from vendordb.jft_vendor
+        <where>
+            <if test="logicId != null">
+                and logic_id = #{logicId}
+            </if>
+            <if test="vendorId != null and vendorId != ''">
+                and vendor_id = #{vendorId}
+            </if>
+            <if test="vendorName != null and vendorName != ''">
+                and vendor_name = #{vendorName}
+            </if>
+            <if test="vendorAge != null">
+                and vendor_age = #{vendorAge}
+            </if>
+            <if test="vendorAddress != null and vendorAddress != ''">
+                and vendor_address = #{vendorAddress}
+            </if>
+            <if test="vendorGendor != null">
+                and vendor_gendor = #{vendorGendor}
+            </if>
+            <if test="vendorAccount != null and vendorAccount != ''">
+                and vendor_account = #{vendorAccount}
+            </if>
+            <if test="vendorAccountNo != null and vendorAccountNo != ''">
+                and vendor_account_no = #{vendorAccountNo}
+            </if>
+            <if test="vendorAccountName != null and vendorAccountName != ''">
+                and vendor_account_name = #{vendorAccountName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="vendorId" useGeneratedKeys="true">
+        insert into vendordb.jft_vendor(logic_id, vendor_name, vendor_age, vendor_address, vendor_gendor, vendor_account, vendor_account_no, vendor_account_name)
+        values (#{logicId}, #{vendorName}, #{vendorAge}, #{vendorAddress}, #{vendorGendor}, #{vendorAccount}, #{vendorAccountNo}, #{vendorAccountName})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update vendordb.jft_vendor
+        <set>
+            <if test="logicId != null">
+                logic_id = #{logicId},
+            </if>
+            <if test="vendorName != null and vendorName != ''">
+                vendor_name = #{vendorName},
+            </if>
+            <if test="vendorAge != null">
+                vendor_age = #{vendorAge},
+            </if>
+            <if test="vendorAddress != null and vendorAddress != ''">
+                vendor_address = #{vendorAddress},
+            </if>
+            <if test="vendorGendor != null">
+                vendor_gendor = #{vendorGendor},
+            </if>
+            <if test="vendorAccount != null and vendorAccount != ''">
+                vendor_account = #{vendorAccount},
+            </if>
+            <if test="vendorAccountNo != null and vendorAccountNo != ''">
+                vendor_account_no = #{vendorAccountNo},
+            </if>
+            <if test="vendorAccountName != null and vendorAccountName != ''">
+                vendor_account_name = #{vendorAccountName},
+            </if>
+        </set>
+        where vendor_id = #{vendorId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from vendordb.jft_vendor where vendor_id = #{vendorId}
+    </delete>
+
+</mapper>

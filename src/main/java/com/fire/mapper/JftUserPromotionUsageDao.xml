@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fire.mapper.JftUserPromotionUsageDao">
+
+    <resultMap type="com.fire.entity.JftUserPromotionUsage" id="JftUserPromotionUsageMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="promotionId" column="PROMOTION_ID" jdbcType="VARCHAR"/>
+        <result property="platVendorId" column="PLAT_VENDOR_ID" jdbcType="VARCHAR"/>
+        <result property="userId" column="USER_ID" jdbcType="VARCHAR"/>
+        <result property="cumulateType" column="CUMULATE_TYPE" jdbcType="VARCHAR"/>
+        <result property="usageTimes" column="USAGE_TIMES" jdbcType="VARCHAR"/>
+        <result property="usageAmount" column="USAGE_AMOUNT" jdbcType="VARCHAR"/>
+        <result property="oredrDate" column="OREDR_DATE" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="modifyTime" column="MODIFY_TIME" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="JftUserPromotionUsageMap">
+        select
+          id, PROMOTION_ID, PLAT_VENDOR_ID, USER_ID, CUMULATE_TYPE, USAGE_TIMES, USAGE_AMOUNT, OREDR_DATE, CREATE_TIME, MODIFY_TIME
+        from jft_user_promotion_usage
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="JftUserPromotionUsageMap">
+        select
+          id, PROMOTION_ID, PLAT_VENDOR_ID, USER_ID, CUMULATE_TYPE, USAGE_TIMES, USAGE_AMOUNT, OREDR_DATE, CREATE_TIME, MODIFY_TIME
+        from jft_user_promotion_usage
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="JftUserPromotionUsageMap">
+        select
+          id, PROMOTION_ID, PLAT_VENDOR_ID, USER_ID, CUMULATE_TYPE, USAGE_TIMES, USAGE_AMOUNT, OREDR_DATE, CREATE_TIME, MODIFY_TIME
+        from jft_user_promotion_usage
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="promotionId != null and promotionId != ''">
+                and PROMOTION_ID = #{promotionId}
+            </if>
+            <if test="platVendorId != null and platVendorId != ''">
+                and PLAT_VENDOR_ID = #{platVendorId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+            <if test="cumulateType != null and cumulateType != ''">
+                and CUMULATE_TYPE = #{cumulateType}
+            </if>
+            <if test="usageTimes != null and usageTimes != ''">
+                and USAGE_TIMES = #{usageTimes}
+            </if>
+            <if test="usageAmount != null and usageAmount != ''">
+                and USAGE_AMOUNT = #{usageAmount}
+            </if>
+            <if test="oredrDate != null and oredrDate != ''">
+                and OREDR_DATE = #{oredrDate}
+            </if>
+            <if test="createTime != null">
+                and CREATE_TIME = #{createTime}
+            </if>
+            <if test="modifyTime != null">
+                and MODIFY_TIME = #{modifyTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into jft_user_promotion_usage(PROMOTION_ID, PLAT_VENDOR_ID, USER_ID, CUMULATE_TYPE, USAGE_TIMES, USAGE_AMOUNT, OREDR_DATE, CREATE_TIME, MODIFY_TIME)
+        values (#{promotionId}, #{platVendorId}, #{userId}, #{cumulateType}, #{usageTimes}, #{usageAmount}, #{oredrDate}, #{createTime}, #{modifyTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update jft_user_promotion_usage
+        <set>
+            <if test="promotionId != null and promotionId != ''">
+                PROMOTION_ID = #{promotionId},
+            </if>
+            <if test="platVendorId != null and platVendorId != ''">
+                PLAT_VENDOR_ID = #{platVendorId},
+            </if>
+            <if test="userId != null and userId != ''">
+                USER_ID = #{userId},
+            </if>
+            <if test="cumulateType != null and cumulateType != ''">
+                CUMULATE_TYPE = #{cumulateType},
+            </if>
+            <if test="usageTimes != null and usageTimes != ''">
+                USAGE_TIMES = #{usageTimes},
+            </if>
+            <if test="usageAmount != null and usageAmount != ''">
+                USAGE_AMOUNT = #{usageAmount},
+            </if>
+            <if test="oredrDate != null and oredrDate != ''">
+                OREDR_DATE = #{oredrDate},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from jft_user_promotion_usage where id = #{id}
+    </delete>
+
+</mapper>
