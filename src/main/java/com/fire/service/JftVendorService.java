@@ -7,7 +7,7 @@ import java.util.List;
  * (JftVendor)表服务接口
  *
  * @author makejava
- * @since 2020-03-23 19:22:38
+ * @since 2020-05-17 22:34:11
  */
 public interface JftVendorService {
 

@@ -1,21 +1,18 @@
 package com.fire.service.impl;
 
 import com.fire.entity.JftVendor;
-import com.fire.mapper.JftVendorDao;
+import com.fire.dao.JftVendorDao;
 import com.fire.service.JftVendorService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
  * (JftVendor)表服务实现类
  *
  * @author makejava
- * @since 2020-03-23 19:22:38
+ * @since 2020-05-17 22:34:11
  */
 @Service("jftVendorService")
 public class JftVendorServiceImpl implements JftVendorService {
@@ -69,20 +66,6 @@ public class JftVendorServiceImpl implements JftVendorService {
         return this.queryById(jftVendor.getVendorId());
     }
 
-    public static void main(String[] args) {
-        try {
-            Date date = new Date();
-            Date parse = new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-15");
-
-            System.out.println(date.after(parse));
-            System.out.println(date.before(parse));
-
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-    }
     /**
      * 通过主键删除数据
      *

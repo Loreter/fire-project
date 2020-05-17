@@ -1,20 +1,19 @@
 package com.fire.entity;
 
-import java.math.BigInteger;
 import java.io.Serializable;
 
 /**
  * (JftVendor)实体类
  *
  * @author makejava
- * @since 2020-03-23 19:22:38
+ * @since 2020-05-17 22:34:11
  */
 public class JftVendor implements Serializable {
-    private static final long serialVersionUID = -94316180103333918L;
+    private static final long serialVersionUID = 981000659928291814L;
     /**
     * 自增主键
     */
-    private BigInteger logicId;
+    private Long logicId;
     /**
     * 商户编号
     */
@@ -49,11 +48,11 @@ public class JftVendor implements Serializable {
     private String vendorAccountName;
 
 
-    public BigInteger getLogicId() {
+    public Long getLogicId() {
         return logicId;
     }
 
-    public void setLogicId(BigInteger logicId) {
+    public void setLogicId(Long logicId) {
         this.logicId = logicId;
     }
 
